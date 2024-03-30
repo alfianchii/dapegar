@@ -1,0 +1,180 @@
+version: "3.8"
+
+services:
+  # Nginx
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-dapegar}
+    restart: unless-stopped
+    container_name: nginx-dapegar
+    ports:
+      - 8000:80
+      - 443:443
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - php
+      - mariadb
+      - phpmyadmin
+    networks:
+      - dapegar-network
+
+  # PHP
+  php:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-dapegar}
+    restart: always
+    container_name: php-dapegar
+    # ports:
+    #   - "9000:9000"
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    networks:
+      - dapegar-network
+
+  # MariaDB
+  mariadb:
+    image: mariadb:11.0.3
+    container_name: mariadb-dapegar
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mariadb
+    volumes:
+      - dapegar-dbdata:/var/lib/mysql
+    networks:
+      - dapegar-network
+
+  # PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: phpmyadmin-dapegar
+    environment:
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USERNAME}
+      PMA_PASSWORD: ${DB_PASSWORD}
+      PMA_PORT: ${DB_PORT}
+    depends_on:
+      - mariadb
+    ports:
+      - 8888:80
+    networks:
+      - dapegar-network
+
+  # Composer
+  composer:
+    build:
+      context: ./docker
+      dockerfile: composer.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-dapegar}
+    container_name: composer-dapegar
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    user: ${USER:-dapegar}
+    profiles: ["composer"]
+    entrypoint: ["composer", "--ignore-platform-reqs"]
+    networks:
+      - dapegar-network
+
+  # NPM
+  npm:
+    image: node:21.1.0-alpine
+    container_name: npm-dapegar
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    ports:
+      - 3000:3000
+      - 3001:3001
+    working_dir: /var/www/html
+    profiles: ["npm"]
+    entrypoint: ["npm"]
+    networks:
+      - dapegar-network
+
+  # Custom services
+  laravel-setup:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-dapegar}
+    container_name: laravel-setup-dapegar
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - mariadb
+    profiles: ["setup"]
+    working_dir: /var/www/html
+    user: ${USER:-dapegar}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        php artisan key:generate
+        php artisan storage:link
+        php artisan config:cache
+        php artisan event:cache
+        php artisan view:cache
+        php artisan migrate --seed
+    networks:
+      - dapegar-network
+
+  artisan:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-dapegar}
+    container_name: artisan-dapegar
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - mariadb
+    working_dir: /var/www/html
+    profiles: ["artisan"]
+    user: ${USER:-dapegar}
+    entrypoint: ["php", "/var/www/html/artisan"]
+    networks:
+      - dapegar-network
+
+# Networks
+networks:
+  dapegar-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  dapegar-dbdata:
+    driver: local
