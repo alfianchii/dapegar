@@ -11,37 +11,54 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    protected $table = "mst_users";
+    protected $primaryKey = "id_user";
+    protected $guarded = ["id_user"];
+    protected $casts = ['password' => 'hashed', 'born' => 'date'];
     protected function casts(): array
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->casts;
+    }
+
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, "created_by", "id_user");
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, "updated_by", "id_user");
+    }
+
+    public function golonganPangkat()
+    {
+        return $this->belongsTo(MasterGolonganPangkat::class, "id_golongan_pangkat", "id_golongan_pangkat");
+    }
+
+    public function eselon()
+    {
+        return $this->belongsTo(MasterEselon::class, "id_eselon", "id_eselon");
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(MasterJabatan::class, "id_jabatan", "id_jabatan");
+    }
+
+    public function lokasiKerja()
+    {
+        return $this->belongsTo(MasterLokasiKerja::class, "id_lokasi_kerja", "id_lokasi_kerja");
+    }
+
+    public function unitKerja()
+    {
+        return $this->belongsTo(MasterUnitKerja::class, "id_unit_kerja", "id_unit_kerja");
+    }
+
+    public function agama()
+    {
+        return $this->belongsTo(MasterAgama::class, "id_agama", "id_agama");
     }
 }
