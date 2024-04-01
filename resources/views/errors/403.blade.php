@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>403 - {{ config('app.name') }}</title>
+    <title>{{ $exception->getStatusCode() }} - {{ config('app.name') }}</title>
     <link rel="shortcut icon" href="{{ asset('assets/logo/high-resolutions/logo-square.png') }}" type="image/x-icon" />
     <link rel="stylesheet" crossorigin href="{{ asset('mazer/assets/compiled/css/app.css') }}" />
     <link rel="stylesheet" crossorigin href="{{ asset('mazer/assets/compiled/css/error.css') }}" />

@@ -25,7 +25,7 @@ class MasterEselon extends Model
         return $this->belongsTo(User::class, "updated_by", "id_user");
     }
 
-    public function user()
+    public function users()
     {
         return $this->hasMany(User::class, "id_eselon", "id_eselon");
     }

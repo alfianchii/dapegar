@@ -22,15 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define("superadmin", function (User $user) {
-            $role = $user->role;
-            return $role == "superadmin";
-        });
-
-        Gate::define("officer", function (User $user) {
-            $role = $user->role;
-            return $role === "officer";
-        });
+        Gate::define("superadmin", fn (User $user) => $user->role == "superadmin");
+        Gate::define("officer", fn (User $user) => $user->role === "officer");
 
         Model::preventLazyLoading(!app()->environment('production'));
     }

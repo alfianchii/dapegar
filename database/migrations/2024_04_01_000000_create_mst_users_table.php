@@ -13,22 +13,22 @@ return new class extends Migration
     {
         Schema::create('mst_users', function (Blueprint $table) {
             $table->id("id_user");
-            $table->string('nip', 11);
+            $table->string('nip', 11)->unique();
             $table->string('nama_lengkap');
             $table->string('tempat_lahir');
             $table->text('alamat');
             $table->date('tanggal_lahir');
             $table->enum('gender', ["L", "P"]);
-            $table->string('phone', 13)->unique();
+            $table->string('telepon', 13)->unique();
             $table->string('email')->unique();
-            $table->string('npwp', 25)->unique();
+            $table->string('npwp', 25)->nullable()->unique();
             $table->unsignedBigInteger('id_golongan_pangkat');
             $table->unsignedBigInteger('id_eselon');
             $table->unsignedBigInteger('id_jabatan');
             $table->unsignedBigInteger('id_lokasi_kerja');
             $table->unsignedBigInteger('id_unit_kerja');
             $table->unsignedBigInteger('id_agama');
-            $table->string('profile_picture')->nullable();
+            $table->string('foto_profil')->nullable();
             $table->string('password');
             $table->enum('role', ["superadmin", "officer"]);
             $table->timestamp('email_verified_at')->nullable();
@@ -36,32 +36,32 @@ return new class extends Migration
             $table->foreign('id_golongan_pangkat')
                 ->references('id_golongan_pangkat')
                 ->on('mst_golongan_pangkat')
-                ->onDelete('cascade');
+                ->onDelete('restrict');
 
             $table->foreign('id_eselon')
                 ->references('id_eselon')
                 ->on('mst_eselon')
-                ->onDelete('cascade');
+                ->onDelete('restrict');
 
             $table->foreign('id_jabatan')
                 ->references('id_jabatan')
                 ->on('mst_jabatan')
-                ->onDelete('cascade');
+                ->onDelete('restrict');
 
             $table->foreign('id_lokasi_kerja')
                 ->references('id_lokasi_kerja')
                 ->on('mst_lokasi_kerja')
-                ->onDelete('cascade');
+                ->onDelete('restrict');
 
             $table->foreign('id_unit_kerja')
                 ->references('id_unit_kerja')
                 ->on('mst_unit_kerja')
-                ->onDelete('cascade');
+                ->onDelete('restrict');
 
             $table->foreign('id_agama')
                 ->references('id_agama')
                 ->on('mst_agama')
-                ->onDelete('cascade');
+                ->onDelete('restrict');
 
             $table->string("created_by")->nullable();
             $table->string("updated_by")->nullable();

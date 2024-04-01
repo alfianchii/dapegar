@@ -26,7 +26,7 @@
                 <div class="relative inline-flex hs-dropdown">
                     <button id="hs-dropdown-with-title" type="button"
                         class="inline-flex items-center px-3 py-2 text-sm font-bold text-center text-white transition-all duration-300 rounded-lg outline-none bg-dodger-blue">
-                        Welcome<span class="hidden lg:inline-block">, Muhammad Alfian</span>!
+                        Welcome<span class="hidden lg:inline-block">, {{ $userData->nama_lengkap }}</span>!
                         <svg class="ms-2 hs-dropdown-open:rotate-180 size-4" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -41,7 +41,7 @@
                                 Page
                             </span>
                             <a class="flex items-center outline-none duration-300 transition-all gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                                href="#">
+                                href="{{ $dashboardURL }}">
                                 <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -69,7 +69,7 @@
                                         <path d="M12 12v9" />
                                         <path d="m8 17 4 4 4-4" />
                                     </svg>
-                                    Logout
+                                    Keluar
                                 </button>
                             </form>
                         </div>
@@ -77,7 +77,7 @@
                 </div>
             @else
                 <div class="flex items-center">
-                    <a href="/login"
+                    <a href="{{ $loginURL }}"
                         class="px-6 py-2 font-bold text-white transition-all duration-300 rounded-lg lg:px-10 bg-dodger-blue hover:bg-dodger-blue/80">
                         Login
                     </a>
@@ -88,7 +88,7 @@
             class="hidden overflow-hidden transition-all duration-300 hs-collapse basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2">
             <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:mt-0 sm:ps-5">
                 <a class="text-base font-medium transition-all duration-300 text-dodger-blue hover:text-royal-blue"
-                    href="/" aria-current="page">Beranda</a>
+                    href="{{ $homeURL }}" aria-current="page">Beranda</a>
                 <a class="text-base font-medium transition-all duration-300 text-slate-grey hover:text-royal-blue"
                     href="/artikel">Artikel</a>
             </div>

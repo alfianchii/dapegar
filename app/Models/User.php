@@ -15,7 +15,7 @@ class User extends Authenticatable
     protected $table = "mst_users";
     protected $primaryKey = "id_user";
     protected $guarded = ["id_user"];
-    protected $casts = ['password' => 'hashed', 'born' => 'date'];
+    protected $casts = ['password' => 'hashed', 'tanggal_lahir' => 'date'];
     protected function casts(): array
     {
         return $this->casts;

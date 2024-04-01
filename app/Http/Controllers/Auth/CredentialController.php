@@ -24,7 +24,7 @@ class CredentialController extends Controller
         if (!Auth::attempt($credentials)) return back()->with("error", "NIP atau password salah!");
         $request->session()->regenerate();
 
-        return redirect()->intended(self::DASHBOARD_URL);
+        return redirect()->intended(self::DASHBOARD_URL)->withSuccess("Berhasil login!");
     }
 
     public function logout(Request $request): RedirectResponse
