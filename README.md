@@ -2,12 +2,12 @@
 
 ### 👨‍🏫 Superadmin
 
--   Username: 12345678901
+-   NIP: 12345678901
 -   Password: password
 
 ### 🧖 Officer
 
--   Username: 54321109876
+-   NIP: 54321109876
 -   Password: password
 
 <h2 id="pre-requisite">💾 Prasyarat</h2>
