@@ -106,8 +106,12 @@
                                 <th>Foto</th>
                                 <th>Nama</th>
                                 <th>Gender</th>
+                                <th>Pangkat</th>
+                                <th>Jabatan</th>
+                                <th>Lokasi</th>
+                                <th>Unit</th>
                                 <th>Dibuat</th>
-                                <th>Data</th>
+                                <th>Role</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -132,8 +136,13 @@
                                             Perempuan
                                         @endif
                                     </td>
-                                    <td><span class="badge bg-primary">{{ ucfirst($user->role) }}</span></td>
+                                    <td>{{ $user->golonganPangkat->kode_golongan }}/{{ $user->golonganPangkat->kode_ruang }}
+                                        {{ $user->golonganPangkat->nama_pangkat }}</td>
+                                    <td>{{ $user->jabatan->nama_jabatan }}</td>
+                                    <td>{{ $user->lokasiKerja->nama_lokasi_kerja }}</td>
+                                    <td>{{ $user->unitKerja->nama_unit_kerja }}</td>
                                     <td>{{ $user->created_at->format('j F Y, \a\t H.i') }}</td>
+                                    <td><span class="badge bg-primary">{{ ucfirst($user->role) }}</span></td>
                                     <td>
                                         <div class="d-flex">
                                             {{-- --------------------------------- Rules --}}
@@ -171,7 +180,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="11">
                                         <p class="mt-3 text-center">Tidak ada pengguna :(</p>
                                     </td>
                                 </tr>

@@ -55,7 +55,8 @@ class MasterUserController extends Controller
     {
         $role = $this->userRole;
         if ($role === "superadmin") {
-            $users = User::whereNot("id_user", $this->userData->id_user)
+            $users = User::with(["golonganPangkat", "eselon", "jabatan", "lokasiKerja", "unitKerja", "agama"])
+                ->whereNot("id_user", $this->userData->id_user)
                 ->latest()
                 ->get();
 
