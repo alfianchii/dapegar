@@ -12,11 +12,13 @@ use App\Http\Controllers\Dashboard\{
     MasterUserController,
 };
 use App\Http\Controllers\Home\{
+    ArticleController,
     HomeController
 };
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, "index"]);
+Route::get("/artikel", [ArticleController::class, "index"])->middleware(["auth"]);
 
 Route::get('/login', [CredentialController::class, 'login'])->name("login")->middleware(["guest"]);
 Route::post('/login', [CredentialController::class, 'authenticate'])->middleware(["guest"]);

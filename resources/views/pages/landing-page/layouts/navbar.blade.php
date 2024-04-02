@@ -87,9 +87,9 @@
         <div id="navbar-alignment"
             class="hidden overflow-hidden transition-all duration-300 hs-collapse basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2">
             <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:mt-0 sm:ps-5">
-                <a class="text-base font-medium transition-all duration-300 text-dodger-blue hover:text-royal-blue"
+                <a class="text-base font-medium transition-all duration-300 {{ Request::is('/') ? 'text-dodger-blue' : 'text-slate-grey' }} hover:text-royal-blue"
                     href="{{ $homeURL }}" aria-current="page">Beranda</a>
-                <a class="text-base font-medium transition-all duration-300 text-slate-grey hover:text-royal-blue"
+                <a class="text-base font-medium transition-all duration-300 {{ Request::is('artikel*') ? 'text-dodger-blue' : 'text-slate-grey' }} hover:text-royal-blue"
                     href="/artikel">Artikel</a>
             </div>
         </div>
