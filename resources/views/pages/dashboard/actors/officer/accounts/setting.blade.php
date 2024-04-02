@@ -82,39 +82,26 @@
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div class="form-group has-icon-left mandatory @error('nip'){{ 'is-invalid' }}@enderror">
-                                    <label for="nip" class="form-label">NIP</label>
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">NIP</label>
                                     <div class="position-relative">
-                                        <input type="text" class="py-2 form-control" placeholder="e.g. 10502417089"
-                                            id="nip" name="nip" value="{{ old('nip') ?? $userData->nip }}"
-                                            maxlength="11" />
+                                        <input type="text" class="py-2 form-control" placeholder="{{ $userData->nip }}"
+                                            disabled readonly />
                                         <div class="form-control-icon">
                                             <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                        @error('nip')
-                                            <div class="invalid-feedback d-block">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div
-                                    class="form-group has-icon-left mandatory @error('tempat_lahir'){{ 'is-invalid' }}@enderror">
-                                    <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Tempat Lahir</label>
                                     <div class="position-relative">
-                                        <input type="text" class="py-2 form-control" placeholder="e.g. Tangerang"
-                                            id="tempat_lahir" name="tempat_lahir"
-                                            value="{{ old('tempat_lahir') ?? $userData->tempat_lahir }}" />
+                                        <input type="text" class="py-2 form-control"
+                                            placeholder="{{ $userData->tempat_lahir }}" disabled readonly />
                                         <div class="form-control-icon">
-                                            <i class="py-2 bi bi-house-door"></i>
+                                            <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                        @error('tempat_lahir')
-                                            <div class="invalid-feedback d-block">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -138,55 +125,28 @@
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div
-                                    class="form-group has-icon-left mandatory @error('tanggal_lahir'){{ 'is-invalid' }}@enderror">
-                                    <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Tanggal Lahir</label>
                                     <div class="position-relative">
-                                        <input type="date" class="py-2 form-control" id="tanggal_lahir"
-                                            name="tanggal_lahir"
-                                            value="{{ old('tanggal_lahir') ?? $userData->tanggal_lahir->format('Y-m-d') }}" />
+                                        <input type="date" class="py-2 form-control"
+                                            value="{{ $userData->tanggal_lahir->format('Y-m-d') }}" disabled readonly />
                                         <div class="form-control-icon">
                                             <i class="py-2 bi bi-calendar"></i>
                                         </div>
-
-                                        @error('tanggal_lahir')
-                                            <div class="invalid-feedback d-block">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div class="form-group mandatory @error('gender'){{ 'is-invalid' }}@enderror">
-                                    <fieldset>
-                                        <label for="gender-L" class="form-label">
-                                            Jenis Kelamin
-                                        </label>
-                                        <div class="d-flex">
-                                            <div class="form-check me-3">
-                                                <input class="form-check-input" type="radio" name="gender"
-                                                    id="gender-L" value="L"
-                                                    @if (old('gender', $userData->gender) == 'L') checked @endif />
-                                                <label class="form-check-label form-label" for="gender-L">
-                                                    Laki-laki
-                                                </label>
-                                            </div>
-                                            <div class="form-check me-3">
-                                                <input class="form-check-input" type="radio" name="gender"
-                                                    id="gender-P" value="P"
-                                                    @if (old('gender', $userData->gender) == 'P') checked @endif />
-                                                <label class="form-check-label form-label" for="gender-P">
-                                                    Perempuan
-                                                </label>
-                                            </div>
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Jenis Kelamin</label>
+                                    <div class="position-relative">
+                                        <input type="text" class="py-2 form-control"
+                                            placeholder="@if ($userData->gender == 'L') Laki-laki @else Perempuan @endif"
+                                            disabled readonly />
+                                        <div class="form-control-icon">
+                                            <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                    </fieldset>
-                                    @error('gender')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
@@ -248,125 +208,65 @@
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div
-                                    class="form-group mandatory @error('id_golongan_pangkat'){{ 'is-invalid' }}@enderror">
-                                    <fieldset class="form-group">
-                                        <label class="form-label" for="id_golongan_pangkat">
-                                            Golongan Pangkat
-                                        </label>
-
-                                        <select class="form-select" id="id_golongan_pangkat" name="id_golongan_pangkat">
-                                            @foreach ($golonganPangkat as $item)
-                                                <option value="{{ $item->id_golongan_pangkat }}"
-                                                    @if (old('id_golongan_pangkat') ?? $userData->id_golongan_pangkat === $item->id_golongan_pangkat) {{ 'selected' }} @endif>
-                                                    {{ $item->kode_golongan }}/{{ $item->kode_ruang }} -
-                                                    {{ $item->nama_pangkat }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </fieldset>
-
-                                    @error('id_golongan_pangkat')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Golongan Pangkat</label>
+                                    <div class="position-relative">
+                                        <input type="text" class="py-2 form-control"
+                                            placeholder="{{ $userData->golonganPangkat->kode_golongan . '/' . $userData->golonganPangkat->kode_ruang . ' - ' . $userData->golonganPangkat->nama_pangkat }}"
+                                            disabled readonly />
+                                        <div class="form-control-icon">
+                                            <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                    @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div class="form-group mandatory @error('id_eselon'){{ 'is-invalid' }}@enderror">
-                                    <fieldset class="form-group">
-                                        <label class="form-label" for="id_eselon">
-                                            Eselon
-                                        </label>
-
-                                        <select class="form-select" id="id_eselon" name="id_eselon">
-                                            @foreach ($eselon as $item)
-                                                <option
-                                                    value="{{ $item->id_eselon }}"@if (old('id_eselon') ?? $userData->id_eselon === $item->id_eselon) {{ 'selected' }} @endif>
-                                                    {{ $item->nama_eselon }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </fieldset>
-
-                                    @error('id_eselon')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Eselon</label>
+                                    <div class="position-relative">
+                                        <input type="text" class="py-2 form-control"
+                                            placeholder="{{ $userData->eselon->nama_eselon }}" disabled readonly />
+                                        <div class="form-control-icon">
+                                            <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                    @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div class="form-group mandatory @error('id_jabatan'){{ 'is-invalid' }}@enderror">
-                                    <fieldset class="form-group">
-                                        <label class="form-label" for="id_jabatan">
-                                            Jabatan
-                                        </label>
-
-                                        <select class="form-select" id="id_jabatan" name="id_jabatan">
-                                            @foreach ($jabatan as $item)
-                                                <option
-                                                    value="{{ $item->id_jabatan }}"@if (old('id_jabatan') ?? $userData->id_jabatan === $item->id_jabatan) {{ 'selected' }} @endif>
-                                                    {{ $item->nama_jabatan }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </fieldset>
-
-                                    @error('id_jabatan')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Jabatan</label>
+                                    <div class="position-relative">
+                                        <input type="text" class="py-2 form-control"
+                                            placeholder="{{ $userData->jabatan->nama_jabatan }}" disabled readonly />
+                                        <div class="form-control-icon">
+                                            <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                    @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div class="form-group mandatory @error('id_lokasi_kerja'){{ 'is-invalid' }}@enderror">
-                                    <fieldset class="form-group">
-                                        <label class="form-label" for="id_lokasi_kerja">
-                                            Lokasi Kerja
-                                        </label>
-
-                                        <select class="form-select" id="id_lokasi_kerja" name="id_lokasi_kerja">
-                                            @foreach ($lokasiKerja as $item)
-                                                <option
-                                                    value="{{ $item->id_lokasi_kerja }}"@if (old('id_lokasi_kerja') ?? $userData->id_lokasi_kerja === $item->id_lokasi_kerja) {{ 'selected' }} @endif>
-                                                    {{ $item->nama_lokasi_kerja }} ({{ $item->nama_alias }})
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </fieldset>
-
-                                    @error('id_lokasi_kerja')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Lokasi Kerja</label>
+                                    <div class="position-relative">
+                                        <input type="text" class="py-2 form-control"
+                                            placeholder="{{ $userData->lokasiKerja->nama_lokasi_kerja }}" disabled
+                                            readonly />
+                                        <div class="form-control-icon">
+                                            <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                    @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-md-6 col-12">
-                                <div class="form-group mandatory @error('id_unit_kerja'){{ 'is-invalid' }}@enderror">
-                                    <fieldset class="form-group">
-                                        <label class="form-label" for="id_unit_kerja">
-                                            Unit Kerja
-                                        </label>
-
-                                        <select class="form-select" id="id_unit_kerja" name="id_unit_kerja">
-                                            @foreach ($unitKerja as $item)
-                                                <option
-                                                    value="{{ $item->id_unit_kerja }}"@if (old('id_unit_kerja') ?? $userData->id_unit_kerja === $item->id_unit_kerja) {{ 'selected' }} @endif>
-                                                    {{ $item->nama_unit_kerja }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </fieldset>
-
-                                    @error('id_unit_kerja')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
+                                <div class="form-group has-icon-left mandatory">
+                                    <label class="form-label">Unit Kerja</label>
+                                    <div class="position-relative">
+                                        <input type="text" class="py-2 form-control"
+                                            placeholder="{{ $userData->unitKerja->nama_unit_kerja }}" disabled readonly />
+                                        <div class="form-control-icon">
+                                            <i class="py-2 bi bi-person-vcard"></i>
                                         </div>
-                                    @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-1 col-12">

@@ -37,10 +37,14 @@ class MasterUserController extends Controller
     public function updateUserRules(array $rules, User $theUser, array $data)
     {
         unset($rules["password"], $rules["password_confirmation"]);
-        if ($data["email"] === $theUser->email) unset($rules["email"]);
-        if ($data["telepon"] === $theUser->telepon) unset($rules["telepon"]);
-        if ($data["nip"] === $theUser->nip) unset($rules["nip"]);
-        if ($data["npwp"] === $theUser->npwp) unset($rules["npwp"]);
+        if (array_key_exists("email", $data))
+            if ($data["email"] === $theUser->email) unset($rules["email"]);
+        if (array_key_exists("telepon", $data))
+            if ($data["telepon"] === $theUser->telepon) unset($rules["telepon"]);
+        if (array_key_exists("nip", $data))
+            if ($data["nip"] === $theUser->nip) unset($rules["nip"]);
+        if (array_key_exists("npwp", $data))
+            if ($data["npwp"] === $theUser->npwp) unset($rules["npwp"]);
 
         return $rules;
     }
@@ -285,6 +289,16 @@ class MasterUserController extends Controller
             return view("pages.dashboard.actors.superadmin.accounts.setting", $viewVariables);
         };
 
+        if ($role === "officer") {
+            $agama = MasterAgama::all();
+
+            $viewVariables = [
+                "title" => "Pengaturan",
+                "agama" => $agama,
+            ];
+            return view("pages.dashboard.actors.officer.accounts.setting", $viewVariables);
+        };
+
         return view("errors.403");
     }
 
@@ -301,8 +315,8 @@ class MasterUserController extends Controller
             return redirect(self::DASHBOARD_URL)->withErrors($e->getMessage());
         }
 
-        $roleName = $this->userRole;
-        if ($roleName === "superadmin") {
+        $role = $this->userRole;
+        if ($role === "superadmin") {
             $rules = $this->updateUserRules($this->getRules(), $user, $data);
             unset($rules["role"]);
             $credentials = Validator::make($data, $rules, $this->getMessages())->validate();
@@ -310,6 +324,27 @@ class MasterUserController extends Controller
 
             return $this->modify($user, $credentials, $this->userData->id_user, "akun kamu", self::DASHBOARD_URL . "/users/account");
         };
+
+        if ($role === "officer") {
+            $rules = $this->updateUserRules($this->getRules(), $user, $data);
+            unset(
+                $rules["role"],
+                $rules["nip"],
+                $rules["tempat_lahir"],
+                $rules["tanggal_lahir"],
+                $rules["gender"],
+                $rules["id_golongan_pangkat"],
+                $rules["id_eselon"],
+                $rules["id_jabatan"],
+                $rules["id_lokasi_kerja"],
+                $rules["id_unit_kerja"],
+            );
+
+            $credentials = Validator::make($data, $rules, $this->getMessages())->validate();
+            $credentials = $this->imageCropping($user->foto_profil, $credentials, "foto_profil", "user/profile-pictures");
+
+            return $this->modify($user, $credentials, $this->userData->id_user, "akun kamu", self::DASHBOARD_URL . "/users/account");
+        }
 
         return view("errors.403");
     }

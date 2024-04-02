@@ -64,12 +64,14 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {{ Request::is('dashboard/articles*') ? 'active' : '' }}">
-                    <a href="{{ $dashboardURL }}/articles" class="sidebar-link">
-                        <i class="bi bi-newspaper"></i>
-                        <span>Artikel</span>
-                    </a>
-                </li>
+                @can('officer')
+                    <li class="sidebar-item {{ Request::is('dashboard/articles*') ? 'active' : '' }}">
+                        <a href="{{ $dashboardURL }}/articles" class="sidebar-link">
+                            <i class="bi bi-newspaper"></i>
+                            <span>Artikel</span>
+                        </a>
+                    </li>
+                @endcan
 
                 @can('superadmin')
                     <li class="sidebar-title">Superadmin</li>

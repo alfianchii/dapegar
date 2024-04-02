@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\{MasterEselon, MasterGolonganPangkat, MasterJabatan, MasterLokasiKerja, MasterUnitKerja, User};
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -47,6 +46,23 @@ class DashboardController extends Controller
                 "newUsers" => $newUsers,
             ];
             return view("pages.dashboard.actors.superadmin.index", $viewVariables);
+        }
+
+        if ($role === "officer") {
+            $usersCount = User::count();
+            $officersCount = User::where("role", "officer")->count();
+            $unitKerjaCount = MasterUnitKerja::count();
+            $lokasiKerjaCount = MasterLokasiKerja::count();
+
+            $viewVariables = [
+                "title" => "Dashboard",
+                "greeting" => $this->greeting(),
+                "usersCount" => $usersCount,
+                "officersCount" => $officersCount,
+                "unitKerjaCount" => $unitKerjaCount,
+                "lokasiKerjaCount" => $lokasiKerjaCount,
+            ];
+            return view("pages.dashboard.actors.officer.index", $viewVariables);
         }
     }
 }
