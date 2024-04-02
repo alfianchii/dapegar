@@ -56,6 +56,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Kode Golongan</th>
+                                <th>Kode Ruang</th>
                                 <th>Nama Golongan Pangkat</th>
                                 <th>User</th>
                                 <th>Sunting</th>
@@ -66,6 +68,8 @@
                             @forelse ($golonganPangkat as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->kode_golongan }}</td>
+                                    <td>{{ $item->kode_ruang }}</td>
                                     <td>{{ $item->nama_pangkat }}</td>
                                     <td>{{ $item->users->count() }}</td>
                                     <td>
@@ -101,7 +105,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="2">
                                         <p class="mt-3 text-center">Tidak ada data master golongan pangkat :(</p>
                                     </td>
                                 </tr>
