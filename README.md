@@ -1,3 +1,15 @@
+<h2 id="testing-account">👤 Akun default untuk testing</h2>
+
+### 👨‍🏫 Superadmin
+
+-   Username: 12345678901
+-   Password: password
+
+### 🧖 Officer
+
+-   Username: 54321109876
+-   Password: password
+
 <h2 id="pre-requisite">💾 Prasyarat</h2>
 
 <p>Berikut ini adalah prasyarat yang diperlukan untuk menginstal dan menjalankan aplikasi.</p>
