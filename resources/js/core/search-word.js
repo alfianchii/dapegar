@@ -1,14 +1,19 @@
 const article = document.getElementById("article");
+const articleContent = article.innerHTML;
+const articleWords = article.textContent.split(" ");
 const inputSearch = document.getElementById("search-word");
+const searchBtn = document.getElementById("search-word-btn");
 const countOfWord = document.getElementById("word-count");
 
 const generateHighlight = (word) =>
     `<span style="background-color: yellow;">${word}</span>`;
 
-const isSameWord = (word, kata) =>
-    word.toLowerCase().includes(kata.toLowerCase());
+const isSameWord = (word, target, isLowerCase = true) =>
+    isLowerCase
+        ? word.toLowerCase().includes(target.toLowerCase())
+        : word.includes(target);
 
-const generateNewArticle = (words, target) => {
+const generateSearchedArticle = (words, target) => {
     let wordsCount = 0;
     const newArticle = words
         .map((word) => {
@@ -21,27 +26,31 @@ const generateNewArticle = (words, target) => {
         })
         .join(" ");
 
-    return {
-        newArticle,
-        wordsCount,
-    };
+    return { newArticle, wordsCount };
 };
 
-const renderNewArticle = (target) => {
-    const splitArticle = article.textContent.split(" ");
-    const { newArticle, wordsCount } = generateNewArticle(splitArticle, target);
+const renderSearchedArticle = (target) => {
+    const { newArticle, wordsCount } = generateSearchedArticle(
+        articleWords,
+        target,
+    );
 
     if (target) {
         article.innerHTML = newArticle;
         countOfWord.textContent = wordsCount;
         return;
     }
+
     article.innerHTML = articleContent;
     countOfWord.textContent = "-";
 };
 
-const articleContent = article.innerHTML;
-inputSearch.addEventListener("input", (e) => renderNewArticle(e.target.value));
+inputSearch.addEventListener("input", (e) =>
+    renderSearchedArticle(e.target.value),
+);
+searchBtn.addEventListener("click", () =>
+    renderSearchedArticle(inputSearch.value),
+);
 
 window.onload = () =>
-    inputSearch.value ? renderNewArticle(inputSearch.value) : "";
+    inputSearch.value ? renderSearchedArticle(inputSearch.value) : "";

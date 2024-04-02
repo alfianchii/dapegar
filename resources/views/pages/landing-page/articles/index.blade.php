@@ -7,15 +7,24 @@
 
 @section('content')
     <div class="flex flex-col items-center justify-center gap-y-5">
+        {{-- Search --}}
         <div class="w-full my-5">
             <label for="search-word" class="block mb-2 text-sm font-bold text-midnight-blue">Cari Kata</label>
             <input type="text" id="search-word"
                 class="border placeholder-ash-grey/50 border-pale-silver text-slate-grey text-sm rounded-md transition-all duration-300 outline-none focus:ring-royal-blue focus:border-royal-blue ring-royal-blue block w-full p-2.5"
                 placeholder="e.g. Teknologi" name="search-word" value="">
-            <p class="mt-2 text-sm text-gray-500" id="hs-input-helper-text">Jumlah: <span id="word-count">-</span>
-            </p>
+
+            <div class="flex items-center mt-3 space-x-3">
+                <button id="search-word-btn"
+                    class="inline-flex items-center px-3 py-2 text-sm font-bold text-center text-white transition-all duration-300 rounded-lg outline-none focus:ring focus:ring-blue-300 bg-dodger-blue">
+                    Search!
+                </button>
+                <p class="text-sm text-gray-500" id="hs-input-helper-text">Jumlah: <span id="word-count">-</span>
+                </p>
+            </div>
         </div>
 
+        {{-- Replace --}}
         <div class="w-full mb-5">
             <label for="from-word" class="block mb-2 text-sm font-bold text-midnight-blue">Ganti Kata</label>
 
@@ -41,7 +50,12 @@
             </div>
         </div>
 
+        {{-- Article --}}
         <div>
+            <div
+                class="py-3 flex items-center text-sm text-gray-800 before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-gray-600 dark:after:border-gray-600">
+                Start</div>
+
             <article id="article">
                 Dalam kehidupan suatu negara, pendidikan memegang peranan yang amat penting untuk menjamin kelangsungan
                 hidup
@@ -120,6 +134,7 @@
                 End</div>
         </div>
 
+        {{-- Sort --}}
         <div class="w-full">
             <label for="sort-word" class="block mb-2 text-sm font-bold text-midnight-blue">Urutkan Kata</label>
             <select id="sort-word"
@@ -129,7 +144,7 @@
             </select>
 
             <div class="mt-3">
-                <button id="sort-word-btn" type="submit"
+                <button id="sort-word-btn"
                     class="inline-flex items-center px-3 py-2 text-sm font-bold text-center text-white transition-all duration-300 rounded-lg outline-none focus:ring focus:ring-blue-300 bg-dodger-blue">
                     Sort!
                 </button>

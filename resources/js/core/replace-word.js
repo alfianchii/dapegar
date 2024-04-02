@@ -1,22 +1,28 @@
 const article = document.getElementById("article");
+const articleContent = article.innerHTML;
+const articleWords = article.textContent.split(" ");
 const fromWord = document.getElementById("from-word");
 const toWord = document.getElementById("to-word");
 const replaceWord = document.getElementById("replace-word");
 
-function alterWord(fromWord, toWord, article) {
-    const splitArticle = article.textContent.split(" ");
-    const newArticle = generateNewArticle(splitArticle, fromWord, toWord);
+function alterWord(fromWord, toWord) {
+    const replacedArticle = generateReplacedArticle(
+        articleWords,
+        fromWord,
+        toWord,
+    );
 
-    renderNewArticle(newArticle);
+    renderReplacedArticle(replacedArticle);
 }
 
-const generateNewArticle = (words, fromWord, toWord) =>
+const generateReplacedArticle = (words, fromWord, toWord) =>
     words.map((word) => (isSameWord(word, fromWord) ? toWord : word)).join(" ");
 
-const renderNewArticle = (newArticle) => (article.innerHTML = newArticle);
+const renderReplacedArticle = (replacedArticle) =>
+    (article.innerHTML = replacedArticle);
 
-const isSameWord = (word, kata) => word.includes(kata);
+const isSameWord = (word, target) => word.includes(target);
 
-replaceWord.addEventListener("click", function () {
-    alterWord(fromWord.value, toWord.value, article);
-});
+replaceWord.addEventListener("click", () =>
+    alterWord(fromWord.value, toWord.value),
+);
