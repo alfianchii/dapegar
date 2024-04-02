@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="flex flex-col items-center justify-center gap-y-5">
+    <div class="flex flex-col items-center justify-center gap-y-5 h-[75vh]">
         <h1 class="text-4xl font-bold text-center text-midnight-blue">Selamat Datang di {{ config('app.name') }}</h1>
         <p class="text-lg text-center text-slate-grey">
             {{ config('app.name') }} adalah aplikasi yang membantu Anda dalam mengelola data pegawai dan artikel. Silakan

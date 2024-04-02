@@ -13,12 +13,14 @@
     @yield('additional_links')
 </head>
 
-<body class="h-screen overflow-x-hidden">
+<body class="overflow-x-hidden">
     {{-- Navbar --}}
     @include('pages.landing-page.layouts.navbar')
 
-    <div class="px-8 2xl:px-[295px] flex items-center justify-center h-[80vh]">
-        @yield('content')
+    <div class="px-8 2xl:px-[295px] flex items-center justify-center">
+        <div class="mb-32">
+            @yield('content')
+        </div>
 
         {{-- Footer --}}
         @include('pages.landing-page.layouts.footer')
